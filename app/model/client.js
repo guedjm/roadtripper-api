@@ -10,6 +10,10 @@ var clientSchema = new mongoose.Schema({
   activated: Boolean
 });
 
+clientSchema.statics.getClientBySecret = function (secret, cb) {
+  clientModel.findOne({secret: secret, activated: true}, cb);
+};
+
 var clientModel = mongoose.model('client', clientSchema);
 
 module.exports = clientModel;
