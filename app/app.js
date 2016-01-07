@@ -13,6 +13,9 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//Custom middleware
+var authMiddleware = require(__base + 'app/middleware/authorization');
+app.use(authMiddleware);
 
 //Routes
 var ping = require(__base + 'app/route/ping');
