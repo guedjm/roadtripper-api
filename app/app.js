@@ -14,14 +14,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
+//Routes
+var ping = require(__base + 'app/route/ping');
+
+app.use('/ping', ping);
+
 
 // 404 error
 app.use(function(req, res, next) {
-  /*var err = new Error('Not Found');
-   err.status = 404;*/
-
-  logger.info('404 not found : ' + req.baseUrl + req.url);
-
   next(error.notFoundError);
 });
 
@@ -34,10 +34,10 @@ app.use(function(err, req, res, next) {
     err = error.internalServerError;
   }
   else {
-    logger.info('Replying [' + err.status + '] : ' + err.message);
+    logger.info('Replying [' + err.status + '] : "' + err.message + '" (code: ' + err.code + ')');
   }
-  res.status(err.status || 500);
-  res.send({status: err.status, error: err.message});
+  res.status(err.status);
+  res.send({code: err.code, error: err.message});
 });
 
 logger.info('app initialized');
