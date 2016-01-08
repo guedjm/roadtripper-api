@@ -8,7 +8,7 @@ function getAuthorization(req, res, next) {
   logger.info('Received a request : ' + req.method + ' ' + req.baseUrl + req.url);
 
   if (req.get('Authorization') == undefined) {
-    clientRequestModel.createRequest(req.method, req.url, req.query, req.body, null, null, null, null, null);
+    clientRequestModel.createRequest(req.method, req.url, req.query, req.body, null, null, null, null, function (err, creq) {});
     logger.info('No Authorization in header');
     next();
   }
@@ -19,7 +19,7 @@ function getAuthorization(req, res, next) {
     var authParam = req.get('Authorization').split(' ');
 
     if (authParam.length != 2) {
-      clientRequestModel.createRequest(req.method, req.url, req.query, req.body, req.get('Authorization'), null, null, null, null);
+      clientRequestModel.createRequest(req.method, req.url, req.query, req.body, req.get('Authorization'), null, null, null, function (err, creq) {});
       next();
     }
     else {
@@ -28,7 +28,7 @@ function getAuthorization(req, res, next) {
         basicAuthentication(authParam[1], function (err, client) {
 
           if (err || client == null) {
-            clientRequestModel.createRequest(req.method, req.url, req.query, req.body, req.get('Authorization'), 'basic', null, null, null);
+            clientRequestModel.createRequest(req.method, req.url, req.query, req.body, req.get('Authorization'), 'basic', null, null, function (err, creq) {});
 
             if (err) {
               next(err);
@@ -56,7 +56,7 @@ function getAuthorization(req, res, next) {
       else if (authParam[0] == 'Bearer') {
         tokenAuthentication(authParam[1], function (err, token) {
           if (err || token == undefined) {
-            clientRequestModel.createRequest(req.method, req.url, req.query, req.body, req.get('Authorization'), 'full', null, null, null);
+            clientRequestModel.createRequest(req.method, req.url, req.query, req.body, req.get('Authorization'), 'full', null, null, function (err, creq) {});
             if (err) {
               next(err);
             } else {
