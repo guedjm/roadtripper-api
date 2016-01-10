@@ -23,6 +23,7 @@ var ping = require(__base + 'app/route/ping');
 var client = require(__base + 'app/route/v1/client');
 
 var userLogin = require(__base + 'app/route/v1/user/login');
+var userFriend = require(__base + 'app/route/v1/user/friend');
 
 var authToken = require(__base + 'app/route/v1/auth/token');
 var authRenew = require(__base + 'app/route/v1/auth/renew');
@@ -32,6 +33,7 @@ app.use('/ping', ping);
 app.use('/v1/client', client);
 
 app.use('/v1/user/login', userLogin);
+app.use('/v1/user/friend', userFriend);
 
 app.use('/v1/auth/token', authToken);
 app.use('/v1/auth/renew', authRenew);
