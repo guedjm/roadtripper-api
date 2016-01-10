@@ -30,6 +30,10 @@ userSchema.statics.createUser = function (id, lltoken, firstName, lastName, name
   }, cb);
 };
 
+userSchema.statics.getById = function (id, cb) {
+  userModel.findOne({_id: id}, cb);
+};
+
 userSchema.statics.getByFacebookId = function (id, cb) {
 
   userModel.findOne({facebookId: id}, cb);

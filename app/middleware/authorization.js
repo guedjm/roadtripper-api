@@ -74,6 +74,7 @@ function getAuthorization(req, res, next) {
                 req.authType = 'full';
                 req.authClient = token.client;
                 req.authUser = token.user;
+                req.authToken = token;
                 req.clientRequest = creq;
                 next();
               }

@@ -14,6 +14,7 @@ module.exports = {
     clientSecret: "d4ae3d8f46c39e3b368425cfe2f9e343"
   },
   security: {
-    tokenDurationMin: 60
+    tokenDurationMin: 60,
+    renewTokenDurationMin: 180
   }
 };

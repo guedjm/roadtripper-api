@@ -22,9 +22,13 @@ var ping = require(__base + 'app/route/ping');
 
 var userLogin = require(__base + 'app/route/v1/user/login');
 
+var authToken = require(__base + 'app/route/v1/auth/token');
+
 app.use('/ping', ping);
 
 app.use('/v1/user/login', userLogin);
+
+app.use('/v1/auth/token', authToken);
 
 // 404 error
 app.use(function(req, res, next) {

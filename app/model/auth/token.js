@@ -10,6 +10,7 @@ var tokenSchema = new mongoose.Schema({
 
   deliveryDate: Date,
   expirationDate: Date,
+  renewExpirationDate: Date,
   usable: Boolean,
   revokeDate: Date
 });
@@ -26,6 +27,7 @@ tokenSchema.statics.createToken = function (userId, clientId, cb) {
 
   var now = new Date();
   var expirationDate = new Date(now.getTime() + config.security.tokenDurationMin * 60000);
+  var renewDate = new Date(now.getTime() + config.security.renewTokenDurationMin * 60000);
 
   tokenModel.create({
     client: clientId,
@@ -33,6 +35,7 @@ tokenSchema.statics.createToken = function (userId, clientId, cb) {
     token: sha1(clientId + userId + now.toTimeString()),
     deliveryDate: now,
     expirationDate: expirationDate,
+    renewExpirationDate: renewDate,
     usable: true
   }, cb);
 };
