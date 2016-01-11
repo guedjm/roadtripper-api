@@ -1,0 +1,310 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: RoadTripper API
+  description: Documentation of the Roatripper REST Api
+
+host: 127.0.0.1:3000
+basePath: /
+
+schemes:
+  - http
+
+produces:
+  - application/json
+  
+paths:
+  /ping:
+    get:
+      summary: Simply reply "pong"
+      description: Allow to check api is running
+      responses:
+        200:
+          description: Server is running
+        404:
+          description: Server is down
+          
+  /v1/auth/token:
+    get:
+      tags:
+        - auth
+      security:
+        - User Auth: []
+      summary: Get information about the current token (included in the request header)
+      responses:
+        200:
+          description: Valid token
+          schema:
+            type: object
+            properties:
+              token:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Current token
+                  deliveryDate:
+                    type: string
+                    description: Date of the delivery
+                  expirationDate:
+                    type: string
+                    description: Date of the expiration of the token
+                  renewExpirationDate:
+                    type: string
+                    description: Max date of the renew operation
+              client:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Client name
+                  id:
+                    type: string
+                    description: Client id
+              user:
+                type: object
+                properties:
+                  publicId:
+                    type: string
+                    description: User public id
+                  name:
+                    type: string
+                    description: User name
+        401:
+          description: "Unauthorized request (token unusable)"
+          schema:
+            $ref: "#/definitions/error"
+            
+  /v1/auth/renew:
+    get:
+      tags:
+        - auth
+      security:
+        - Client Auth: []
+      summary: Get a new access token
+      description: Exchange an expired access token and give a new one
+      parameters:
+        - name: access_token
+          in: query
+          description: The expired access token
+          required: true
+          type: string
+      responses:
+        200:
+          description: Operation succeed
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+                description: The new access token
+        400:
+          description: Invalid request (Check required params and token validity)
+          schema:
+            $ref: "#/definitions/error"
+        401:
+          description: Unauthorized request
+          schema:
+            $ref: "#/definitions/error"
+        
+  
+  /v1/client:
+    post:
+      tags:
+        - client
+      security:
+        - Client Auth: []
+      summary: Create a new client
+      description: This operation create a new client. Only client of type 3 (admin) are allowed to perform this operation
+      parameters:
+        - name: ClientData
+          in: body
+          required: true
+          description: Client data
+          schema:
+            type: object
+            properties:
+              type:
+                type: integer
+                description: The type of the client (1 are external clients, 2 are company clients)
+              name:
+                type: string
+                description: The client name
+      responses:
+        200:
+          description: Creation succeed
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The client id
+              name:
+                type: string
+                description: The client name
+              secret:
+                type: string
+                description: The client secret
+              activated:
+                type: boolean
+                description: The activation of the client
+        400:
+          description: Invalid request
+          schema:
+            $ref: "#/definitions/error"
+        401:
+          description: Unauthorized request
+          schema:
+            $ref: "#/definitions/error"
+        
+              
+                    
+  /v1/user/login:
+    post:
+      tags:
+        - user
+      security:
+        - Client Auth : []
+      summary: Login the user and reply all important information to the client
+      description: This operation register the user if it is the first time he use the application. The reply contains user information, accessToken and a long lived Facebook token.
+      parameters:
+        - name: facebookToken
+          in: body
+          description: The Facebook access token
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Login success
+          schema:
+            type: object
+            properties:
+              publicId:
+                type: string
+                description: User public Id
+              fbToken:
+                type: string
+                description: The new facebook token (Duration of 60 days)
+              accessToken:
+                type: string
+                description: The accessToken required to authenticate request (User auth)
+              firstName:
+                type: string
+                description: User first name
+              lastName:
+                type: string
+                description: User last name
+              name:
+                type: string
+                description: User name
+              friends:
+                type: array
+                items:
+                  $ref: '#/definitions/friend'
+        400:
+          description: "Invalid request (code: 0)"
+          schema:
+            $ref: '#/definitions/error'
+        401:
+          description: "Unauthorized request (code 1: Client authentification, code 2: Invalid Facebook accessToken)"
+          schema:
+            $ref: '#/definitions/error'
+      
+  /v1/user/friend:
+    get:
+      tags:
+        - user
+      security:
+        - User Auth: []
+      summary: Get user friend
+      description: This operation will get user friend from Facebook api, reply and update database
+      responses:
+        200:
+          description: Operation succeed
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/friend"
+        400:
+          description: "Invalid request (code: 0)"
+          schema:
+            $ref: '#/definitions/error'
+        401:
+          description: "Unauthorized request (code 1: Client authentification, code 2: Invalid Facebook accessToken)"
+          schema:
+            $ref: '#/definitions/error'
+          
+
+security:
+  - Client Auth: []
+  - User Auth: []
+
+securityDefinitions:
+  Client Auth:
+    type: basic
+    description: >
+      ###### Request need to be authenticated by HTTP Basic Authentification 
+      
+      Simply add your client secret to the HTTP header of your request:
+      
+      ```
+      
+      Authorization : Basic YOUR_CLIENT_SECRET
+    
+      ```
+      
+  User Auth:
+    type: basic
+    description: >
+      ###### Request need to bo authenticated by Access token
+      
+      Simply add your accessToken to the HTTP header of your request:
+      
+      ```
+      
+      Authorization : Bearer YOUR_ACCESS_TOKEN
+    
+      ```
+      
+      To obtain an accessToken, check the route **/v1/user/login** documentation
+    
+tags:
+  - name: auth
+    description: Request related to authentification
+    
+  - name: user
+    description: Request related to users
+    
+  - name: client
+    description: Request related to clients
+    
+definitions:
+  friend:
+    type: object
+    properties:
+      facebookId:
+        type: string
+      publicId:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      name:
+        type: string
+  error:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: Error code
+      subCode:
+        type: integer
+        description: Error subCode
+      error:
+        type: string
+        description: Error description
+        
+      
