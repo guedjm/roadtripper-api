@@ -195,58 +195,6 @@ paths:
             $ref: "#/definitions/error"
         
               
-                    
-  /v1/user/login:
-    post:
-      tags:
-        - user
-      security:
-        - Client Auth : []
-      summary: Login the user and reply all important information to the client
-      description: This operation register the user if it is the first time he use the application. The reply contains user information, accessToken and a long lived Facebook token.
-      parameters:
-        - name: facebookToken
-          in: body
-          description: The Facebook access token
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Login success
-          schema:
-            type: object
-            properties:
-              publicId:
-                type: string
-                description: User public Id
-              fbToken:
-                type: string
-                description: The new facebook token (Duration of 60 days)
-              accessToken:
-                type: string
-                description: The accessToken required to authenticate request (User auth)
-              firstName:
-                type: string
-                description: User first name
-              lastName:
-                type: string
-                description: User last name
-              name:
-                type: string
-                description: User name
-              friends:
-                type: array
-                items:
-                  $ref: '#/definitions/user'
-        400:
-          description: "Invalid request (code: 0)"
-          schema:
-            $ref: '#/definitions/error'
-        401:
-          description: "Unauthorized request (code 1: Client authentification, code 2: Invalid Facebook accessToken)"
-          schema:
-            $ref: '#/definitions/error'
 
   /v1/user/info:
     get:
