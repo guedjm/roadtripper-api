@@ -202,7 +202,7 @@ paths:
               friends:
                 type: array
                 items:
-                  $ref: '#/definitions/friend'
+                  $ref: '#/definitions/user'
         400:
           description: "Invalid request (code: 0)"
           schema:
@@ -211,7 +211,21 @@ paths:
           description: "Unauthorized request (code 1: Client authentification, code 2: Invalid Facebook accessToken)"
           schema:
             $ref: '#/definitions/error'
-      
+
+  /v1/user/info:
+    get:
+      tags:
+        - user
+      security:
+        - User Auth: []
+      summary: Get user information
+      description: This operation return the user information
+      responses:
+        200:
+          description: Operation succeed
+          schema:
+            $ref: "#/definitions/user"
+
   /v1/user/friend:
     get:
       tags:
@@ -226,7 +240,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/friend"
+              $ref: "#/definitions/user"
         400:
           description: "Invalid request (code: 0)"
           schema:
@@ -281,7 +295,7 @@ tags:
     description: Request related to clients
     
 definitions:
-  friend:
+  user:
     type: object
     properties:
       facebookId:
