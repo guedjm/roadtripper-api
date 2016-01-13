@@ -24,7 +24,6 @@ router.get('', function (req, res, next) {
         var reply = {
           publicId: user.publicId,
           facebookId: user.facebookId,
-          facebookToken: user.facebookToken,
           firstName: user.firstName,
           lastName: user.lastName,
           name: user.name

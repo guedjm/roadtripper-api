@@ -82,6 +82,9 @@ function getAuthorization(req, res, next) {
           }
         });
       }
+      else {
+        next();
+      }
     }
   }
 }
