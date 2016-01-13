@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var clientRequestSchema = new mongoose.Schema({
   date: Date,
+  remoteIp: String,
   method: String,
   url: String,
   param: {},
@@ -12,12 +13,13 @@ var clientRequestSchema = new mongoose.Schema({
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
-clientRequestSchema.statics.createRequest = function (method, url, param, body, auth, authType, clientId, userId, cb) {
+clientRequestSchema.statics.createRequest = function (remoteIp, method, url, param, body, auth, authType, clientId, userId, cb) {
 
   var now = new Date();
 
   clientRequestModel.create({
     date: now,
+    remoteIp: remoteIp,
     method: method,
     url: url,
     param: param,
