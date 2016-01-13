@@ -5,6 +5,7 @@ DAEMON=/usr/local/bin/node
 FILE=/srv/api/roadtripper-api/bin/www
 FULLCMD="usr/local/bin/node /srv/api/roadtripper-api/bin/www"
 DESC=api
+APINAME=roadtripper
 
 NAME=node
 PIDFILE=/srv/api/roadtripper-api/bin/$NAME.pid
@@ -15,7 +16,7 @@ STARTTIME=1
 DIETIME=10
 
 DAEMONUSER=roadtripper-api
-DAEMONUSER=roadtripper
+DAEMONGROUP=roadtripper
 
 set -e
 
@@ -38,16 +39,16 @@ running() {
     # No pidfile, probably no daemon present
     [ ! -f "$PIDFILE" ] && return 1
     pid=`cat $PIDFILE`
-    running_pid $pid $FULLCMD || return 1
+    running_pid $pid $DAEMON || return 1
     return 0
 }
 
 start_server() {
 
     # Start the process using the wrapper
-    start-stop-daemon --background --start --quiet --pidfile $PIDFILE \
+    start-stop-daemon --background  --start --pidfile $PIDFILE \
        --make-pidfile --chuid $DAEMONUSER:$DAEMONGROUP \
-       --exec $NUMACTL $DAEMON $FILE
+       --exec $DAEMON $FILE
     errcode=$?
     return $errcode
 }
@@ -65,16 +66,15 @@ stop_server() {
 case "$1" in
 
     start)
-        log_daemon_msg "Starting $DESC" "$NAME"
+        log_daemon_msg "Starting $DESC" "$APINAME"
 
         #Check if api is running
         if running ; then
-            log_process_msg "apparently already running"
+            log_progress_msg "apparently already running"
             log_end_msg 0
             exit 0
         fi
 
-        #Start server
         if start_server ; then
 
             [ -n "$STARTTIME" ] && sleep $STARTTIME #Wait some time
@@ -89,7 +89,7 @@ case "$1" in
         ;;
 
     stop)
-        log_daemon_msg "Stopping $DESC" "$NAME"
+        log_daemon_msg "Stopping $DESC" "$APINAME"
         if running ; then #Check if server is running
             errcode=0
             stop_server || errcode=$?
@@ -102,7 +102,7 @@ case "$1" in
         ;;
 
     restart)
-        log_daemon_msg "Restarting $DESC" "$NAME"
+        log_daemon_msg "Restarting $DESC" "$APINAME"
         errcode=0
         stop_server || errcode=$? #Stop server
 
@@ -114,7 +114,7 @@ case "$1" in
         ;;
 
     status)
-        log_daemon_msg "Checking status of $DESC" "$NAME"
+        log_daemon_msg "Checking status of $DESC"
         if running ; then
             log_progress_msg "running"
             log_end_msg 0
