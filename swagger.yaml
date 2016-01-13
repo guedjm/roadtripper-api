@@ -24,7 +24,43 @@ paths:
           description: Server is running
         404:
           description: Server is down
-          
+
+  /v1/auth/login:
+    post:
+      tags:
+        - auth
+      security:
+        - Client Auth: []
+      summary: Login the user and reply a facebook token and an accessToken
+      description: This operation register the user if it is the first time he use the application.
+      parameters:
+        - name: facebookToken
+          in: body
+          description: The Facebook access token
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Operation succeed
+          schema:
+             type: object
+             properties:
+               fbToken:
+                 type: string
+                 description: The new facebook token (Duration of 60 days)
+               accessToken:
+                 type: string
+                 description: The accessToken required to authenticate request (User auth)
+        400:
+          description: "Invalid request (code: 0)"
+          schema:
+            $ref: '#/definitions/error'
+        401:
+          description: "Unauthorized request (code 1: Client authentification, code 2: Invalid Facebook accessToken)"
+          schema:
+            $ref: '#/definitions/error'
+
   /v1/auth/token:
     get:
       tags:

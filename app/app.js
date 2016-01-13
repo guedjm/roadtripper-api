@@ -26,6 +26,7 @@ var userLogin = require(__base + 'app/route/v1/user/login');
 var userFriend = require(__base + 'app/route/v1/user/friend');
 var userInfo = require(__base + 'app/route/v1/user/info');
 
+var authLogin = require(__base + 'app/route/v1/auth/login');
 var authToken = require(__base + 'app/route/v1/auth/token');
 var authRenew = require(__base + 'app/route/v1/auth/renew');
 
@@ -37,6 +38,7 @@ app.use('/v1/user/login', userLogin);
 app.use('/v1/user/info', userInfo);
 app.use('/v1/user/friend', userFriend);
 
+app.use('/v1/auth/login', authLogin);
 app.use('/v1/auth/token', authToken);
 app.use('/v1/auth/renew', authRenew);
 
