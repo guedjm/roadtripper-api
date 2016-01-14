@@ -1,3 +1,7 @@
+//TODO: Implement tests
+//TODO: Create a back end website
+//TODO: Start the roadtripper-server
+
 var express = require('express');
 var bodyParser = require('body-parser');
 
