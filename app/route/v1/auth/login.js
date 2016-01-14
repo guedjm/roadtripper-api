@@ -29,78 +29,65 @@ router.post('', function (req, res, next) {
           next(err);
         }
         else {
-
-          //Get long lived fb Token
-          logger.info('Getting long lived facebook token');
-          fbService.getLongLivedToken(facebookToken, function (err, llToken) {
+          userModel.getByFacebookId(fbUser.id, function (err, user) {
             if (err) {
+              logger.error('Unable to get user (fbId)');
               next(err);
             }
             else {
 
-              userModel.getByFacebookId(fbUser.id, function (err, user) {
-                if (err) {
-                  logger.error('Unable to get user (fbId)');
-                  next(err);
-                }
-                else {
+              if (user == undefined) {
 
-                  if (user == undefined) {
+                //Creating new user
+                logger.info('Registering new user ...');
+                userModel.createUser(fbUser.id, facebookToken, fbUser.first_name, fbUser.last_name, fbUser.name, req.clientRequest._id,
+                  function (err, cuser) {
 
-                    //Creating new user
-                    logger.info('Registering new user ...');
-                    userModel.createUser(fbUser.id, llToken, fbUser.first_name, fbUser.last_name, fbUser.name, req.clientRequest._id,
-                      function (err, cuser) {
+                    if (err) {
+                      logger.error('Unable to create user');
+                      next(err);
+                    }
+                    else {
+                      logger.info('User ' + fbUser.name + ' created !');
 
+                      //Generating token
+                      generateToken(cuser._id, req.authClient._id, function (err, token) {
                         if (err) {
-                          logger.error('Unable to create user');
+                          logger.error('Unable to generate token');
                           next(err);
                         }
                         else {
-                          logger.info('User ' + fbUser.name + ' created !');
 
-                          //Generating token
-                          generateToken(cuser._id, req.authClient._id, function (err, token) {
-                            if (err) {
-                              logger.error('Unable to generate token');
-                              next(err);
-                            }
-                            else {
-
-                              //Replying
-                              var reply = {
-                                fbToken: llToken,
-                                accessToken: token.token
-                              };
-                              res.send(reply);
-                            }
-                          });
+                          //Replying
+                          var reply = {
+                            accessToken: token.token
+                          };
+                          res.send(reply);
                         }
                       });
+                    }
+                  });
+              }
+              else {
+
+                //Update facebook token
+                logger.info('Updating facebook token');
+                user.updateFbToken(facebookToken, function (err) {});
+
+                generateToken(user._id, req.authClient._id, function (err, token) {
+                  if (err) {
+                    next(err);
                   }
                   else {
+                    var reply = {
+                      accessToken: token.token
+                    };
 
-                    //Update facebook token
-                    logger.info('Updating facebook token');
-                    user.updateFbToken(llToken, function (err) {});
-
-                    generateToken(user._id, req.authClient._id, function (err, token) {
-                      if (err) {
-                        next(err);
-                      }
-                      else {
-                        var reply = {
-                          fbToken: llToken,
-                          accessToken: token.token
-                        };
-
-                        //Send reply
-                        res.send(reply);
-                      }
-                    });
+                    //Send reply
+                    res.send(reply);
                   }
-                }
-              });
+                });
+              }
             }
           });
         }

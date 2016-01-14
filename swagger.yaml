@@ -31,7 +31,7 @@ paths:
         - auth
       security:
         - Client Auth: []
-      summary: Login the user and reply a facebook token and an accessToken
+      summary: Login the user and reply a accessToken
       description: This operation register the user if it is the first time he use the application.
       parameters:
         - name: facebookToken
@@ -46,9 +46,6 @@ paths:
           schema:
              type: object
              properties:
-               fbToken:
-                 type: string
-                 description: The new facebook token (Duration of 60 days)
                accessToken:
                  type: string
                  description: The accessToken required to authenticate request (User auth)
