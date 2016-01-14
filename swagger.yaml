@@ -140,7 +140,66 @@ paths:
           description: Unauthorized request
           schema:
             $ref: "#/definitions/error"
-        
+
+  /v1/auth/facebooktoken:
+    get:
+      tags:
+        - auth
+      security:
+        - User Auth: []
+      summary: Get the current facebook token
+      description: Return the current facebook token
+      responses:
+        200:
+          description: Operation succeed
+          schema:
+            type: object
+            properties:
+              facebookToken:
+                type: string
+                description: The facebook token
+        401:
+          description: Unauthorized request
+          schema:
+            $ref: "#/definitions/error"
+    post:
+      tags:
+        - auth
+      security:
+        - User Auth: []
+      summary: Update the current facebook token
+      description: Update the server side facebook token
+      parameters:
+        - name: facebookToken
+          in: body
+          required: true
+          description: facebookToken
+          schema:
+            type: object
+            properties:
+              facebookToken:
+                type: string
+                description: The new facebook token
+
+      responses:
+        200:
+          description: Operation succeed
+          schema:
+            type: object
+            properties:
+              facebookToken:
+                type: string
+                description: The new facebook token
+        400:
+          description: Invalid request
+          schema:
+            $ref: "#/definitions/error"
+        401:
+          description: Unauthorized request
+          schema:
+            $ref: "#/definitions/error"
+
+
   
   /v1/client:
     post:
