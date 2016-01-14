@@ -20,6 +20,10 @@ tokenSchema.statics.getToken = function (token, cb) {
   tokenModel.findOne({token: token, usable: true, expirationDate: {$gt: new Date()}}, cb);
 };
 
+tokenSchema.statics.getRenewableToken = function (token, cb) {
+  tokenModel.findOne({token: token, usable: true, renewExpirationDate: {$gt: new Date()}}, cb);
+};
+
 tokenSchema.statics.getTokenForRenew = function (token, cb) {
   tokenModel.findOne({token: token, usable: true, expirationDate: {$lt: new Date()}, renewExpirationDate: {$gt: new Date()}}, cb);
 };

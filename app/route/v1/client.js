@@ -8,7 +8,7 @@ router.post('', function (req, res, next) {
 
   //Check auth
   if (req.authType != 'basic' || req.authClient == undefined || req.authClient.type != 3) {
-    next(error.unauthorizedError);
+    next(error.clientAuthRequired);
   }
   else {
 

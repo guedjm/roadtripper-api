@@ -1,4 +1,5 @@
 var logger = require(__base + 'app/misc/logger');
+var error = require(__base + 'app/misc/error');
 var clientRequestModel = require(__base + 'app/model/clientRequest');
 var clientModel = require(__base + 'app/model/client');
 var tokenModel = require(__base + 'app/model/auth/token');
@@ -109,23 +110,33 @@ function basicAuthentication(clientSecret, cb) {
   });
 }
 
-function tokenAuthentication(token , cb) {
+function tokenAuthentication(tokenstr , cb) {
 
   logger.info('Authenticating user ...');
 
-  tokenModel.getToken(token, function (err, token) {
+  tokenModel.getToken(tokenstr, function (err, token) {
     if (err) {
       logger.error('Unable to find token');
       cb(err, null);
     }
-    else if (token == undefined) {
-      logger.info('Token not found');
-      cb(null, null);
-    }
-    else {
+    else if (token != undefined) {
       logger.info('Client is ' + token.client);
       logger.info('User is ' + token.user);
       cb(null, token);
+    }
+    else {
+      tokenModel.getRenewableToken(tokenstr, function (err, ntoken) {
+        if (err) {
+          logger.error('Unable to get renewable token');
+          cb(err, null);
+        }
+        else if (ntoken != undefined) {
+          cb(error.expiredToken, null);
+        }
+        else {
+          cb(error.wrongToken, null);
+        }
+      });
     }
   });
 }

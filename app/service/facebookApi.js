@@ -129,7 +129,7 @@ function handleError(body) {
   if (fbError.type == "OAuthException") {
     logger.info('Invalid token : ' + fbError.message);
     err = error.fbInvalidToken;
-    err.subCode = fbError.error_subcode;
+    err.errorSubCode = fbError.error_subcode;
   }
   else {
     logger.error('Facebook request error');

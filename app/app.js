@@ -56,10 +56,15 @@ app.use(function(err, req, res, next) {
     err = error.internalServerError;
   }
   else {
-    logger.info('Replying [' + err.status + '] : "' + err.message + '" (code: ' + err.code + ')');
+    logger.info('Replying [' + err.httpStatusCode + '] : "' + err.message + '" (' + err.errorCode + '/' + err.errorSubCode  + ')');
   }
-  res.status(err.status);
-  res.send({code: err.code, error: err.message, subCode: err.subCode});
+  res.status(err.httpStatusCode);
+  res.send({
+    error: {
+      message: err.message,
+      errorCode: err.errorCode,
+      errorSubCode: err.errorSubCode}
+  });
 });
 
 logger.info('app initialized');

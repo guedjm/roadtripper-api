@@ -9,7 +9,7 @@ router.get('', function (req, res, next) {
 
   //Check auth
   if (req.authType != 'full' || req.authUser == undefined || req.authClient == undefined || req.authToken == undefined) {
-    next(error.unauthorizedError);
+    next(error.userAuthRequired);
   }
   else {
 

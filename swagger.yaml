@@ -50,7 +50,7 @@ paths:
                  type: string
                  description: The accessToken required to authenticate request (User auth)
         400:
-          description: "Invalid request (code: 0)"
+          description: "Invalid request"
           schema:
             $ref: '#/definitions/error'
         401:
@@ -105,7 +105,7 @@ paths:
                     type: string
                     description: User name
         401:
-          description: "Unauthorized request (token unusable)"
+          description: "Unauthorized request"
           schema:
             $ref: "#/definitions/error"
             
@@ -133,7 +133,7 @@ paths:
                 type: string
                 description: The new access token
         400:
-          description: Invalid request (Check required params and token validity)
+          description: Invalid request
           schema:
             $ref: "#/definitions/error"
         401:
@@ -282,11 +282,11 @@ paths:
             items:
               $ref: "#/definitions/user"
         400:
-          description: "Invalid request (code: 0)"
+          description: "Invalid request"
           schema:
             $ref: '#/definitions/error'
         401:
-          description: "Unauthorized request (code 1: Client authentification, code 2: Invalid Facebook accessToken)"
+          description: "Unauthorized request"
           schema:
             $ref: '#/definitions/error'
           
@@ -351,14 +351,16 @@ definitions:
   error:
     type: object
     properties:
-      code:
-        type: integer
-        description: Error code
-      subCode:
-        type: integer
-        description: Error subCode
       error:
-        type: string
+        type: object
         description: Error description
-        
-      
+        properties:
+          message:
+            type: string
+            description: The error message
+          errorCode:
+            type: integer
+            description: The error code
+          errorSubCode:
+            type: integer
+            description: The error subCode
