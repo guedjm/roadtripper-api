@@ -70,6 +70,23 @@ router.get('', function (req, res, next) {
                 }
               });
             });
+
+            //If there is no friend
+            if (friends.length == 0) {
+              //Reply
+              res.send(friendsInfo);
+
+              //Update friends
+              user.setFriend(friendsId, function (err) {
+                if (err) {
+                  logger.error('Unable to update friends');
+                  next(err);
+                }
+                else {
+                  logger.info('Friend updated');
+                }
+              })
+            }
           }
         });
       }
