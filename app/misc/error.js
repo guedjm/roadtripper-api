@@ -36,6 +36,7 @@ var wrongToken = {
 var fbInvalidToken = {
   httpStatusCode: 401,
   errorCode: 3,
+  errorSubCode: 1,
   message: 'Invalid facebook access token, please update facebook token (POST /v1/auth/facebooktoken)'
 };
 
@@ -52,7 +53,7 @@ var internalServerError = {
 
 var invalidFacebookReply = {
   httpStatusCode: 500,
-  errorCode: 1,
+  errorCode: 2,
   message: 'Internal server error (facebook reply)'
 };
 
