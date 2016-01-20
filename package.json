@@ -1,6 +1,6 @@
 {
   "name": "roadtripper-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Roadtripper project REST Api",
   "scripts": {
     "start": "node ./bin/www",
