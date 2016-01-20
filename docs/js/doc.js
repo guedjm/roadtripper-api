@@ -60,7 +60,7 @@ function docLoadVersions() {
 
 function versionLoadVersions() {
 
-  $.get("../version.json", function (data) {
+  $.get("./version.json", function (data) {
 
     var versionDesc = $("#versions");
 

@@ -22,5 +22,9 @@
     {
         "version": "1.0.7",
         "message": "toto"
+    },
+    {
+        "version": "1.0.8",
+        "message": "toto"
     }
 ]

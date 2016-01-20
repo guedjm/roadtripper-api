@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>Roadtripper API Documentation</title>
+        <link rel="stylesheet" type="text/css"
+        href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/uber-font.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <script src="../js/jquery-1.12.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/doc.js"></script>
+        <script>
+            var version = "1.0.8";
+            docLoadVersions();
+        </script>
+    </head>
+    
+    <body>
+        <header class="header">
+            <div class="container">
+                <div>
+                    <h4>Roadtripper API<span class="version">v 1.0.8</span></h4>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="page_content">
+                <div class="row">
+                    <!--Right navigation-->
+                    <div class="col-sm-3 border-right section-left">
+                        <div class="sidebar-nav">
+                            <div class="bloc"><a href="#general"><h4>GENERAL</h4></a>
+                                <ul>
+                                    <div>
+                                        <li><a href="#paragraphs-introduction">Introduction</a>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li><a href="#paragraphs-security">Security</a>
+                                            <ul><span><li><a href="#paragraphs-security-client-auth">Client Auth</a></li></span><span><li><a href="#paragraphs-security-user-auth">User Auth</a></li></span>
+                                            </ul>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="bloc"><a href="#api"><h4>API Reference</h4></a>
+                                <div>
+                                    <table class="url-table">
+                                        <tbody>
+                                            <tr>
+                                                <!--METHOD BEGIN-->
+                                                <td><a href="#get-ping"><span class="label label-primary">GET</span></a>
+                                                </td>
+                                                <td class="sidebar-nav-url"><a href="#get-ping"><span>/ping</span></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <ul>
+                                        <li class="path-menu"><a href="#paths-auth" class="path-title">Auth</a>
+                                            <table class="url-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#get-auth-login"><span class="label label-primary">GET</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#get-auth-login"><span>/auth/login</span></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#get-auth-token"><span class="label label-primary">GET</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#get-auth-token"><span>/auth/token</span></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#get-auth-renew"><span class="label label-primary">GET</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#get-auth-renew"><span>/auth/renew</span></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#get-auth-facebooktoken"><span class="label label-primary">GET</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#get-auth-facebooktoken"><span>/auth/facebooktoken</span></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#post-auth-facebooktoken"><span class="label label-success">POST</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#post-auth-facebooktoken"><span>/auth/facebooktoken</span></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </li>
+                                        <li class="path-menu"><a href="#paths-client" class="path-title">Client</a>
+                                            <table class="url-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#post-client"><span class="label label-success">POST</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#post-client"><span>/client</span></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </li>
+                                        <li class="path-menu"><a href="#paths-user" class="path-title">User</a>
+                                            <table class="url-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#get-user-info"><span class="label label-primary">GET</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#get-user-info"><span>/user/info</span></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <!--METHOD BEGIN-->
+                                                        <td><a href="#get-user-friend"><span class="label label-primary">GET</span></a>
+                                                        </td>
+                                                        <td class="sidebar-nav-url"><a href="#get-user-friend"><span>/user/friend</span></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="bloc"><a href="#obj"><h4>Objects</h4></a>
+                                <ul>
+                                    <div>
+                                        <li><a href="#obj-error">Error</a>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li><a href="#obj-access-token-reply">Access token reply</a>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li><a href="#obj-token-information-reply">Token information reply</a>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li><a href="#obj-user-info">User info</a>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li><a href="#obj-friend-list">Friend list</a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="bloc"><a href="#errors"><h4>Errors</h4></a>
+                            </div>
+                            <div class="bloc"><a href="#versions"><h4>Versions</h4></a>
+                                <ul id="version_list"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Content-->
+                    <div class="col-sm-9 border-left section-right">
+                        <div class="doc-content">
+                            <div class="part">
+                                <h1 id="general">General</h1>
+                                <hr>
+                                <div class="paragraph-header">
+                                    <h2 id="paragraphs-introduction">Introduction</h2>
+                                    <p>Roadtripper API is a REST API, each request use the <strong>HTTP</strong> protocol.
+                                        <br/>Each request paths (exept <a href="#get-ping">/ping</a>) must be prefixed
+                                        by the current major version of the api server. Since we are in version <strong>1.-.-</strong>,
+                                        paths must be prefixed by <strong>/v1</strong>
+                                        <br/>For example, the url of the login request ( <a href="#get-auth-login">/auth/login</a> )
+                                        is <em>/v1/auth/login</em>
+                                    </p>
+                                </div>
+                                <div class="paragraph-header">
+                                    <h2 id="paragraphs-security">Security</h2>
+                                    <p>The API handle two type of authorization. To know which one you have to
+                                        implement for a request, look at the request TAGs (top-right coner of the
+                                        request description).</p>
+                                    <div class="paragraph">
+                                        <h3 id="paragraphs-security-client-auth">Client Auth</h3>
+                                        <p>Request need to be authenticated by HTTP Basic Authentification. Add your
+                                            client secret to the HTTP header of your request:</p>
+                                        <p><pre><code><br>
+Authorization : Basic YOUR_CLIENT_SECRET
+<br><br></code></pre>
+                                        </p>
+                                    </div>
+                                    <div class="paragraph">
+                                        <h3 id="paragraphs-security-user-auth">User Auth</h3>
+                                        <p>Request need to bo authenticated by Access token. Add your accessToken
+                                            to the HTTP header of your request:
+<pre><code><br>
+Authorization : Bearer YOUR_ACCESS_TOKEN
+<br><br></code></pre>
+To obtain an accessToken, use the <a href="#get-auth-login">/auth/login</a> route.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="part">
+                                <h1 id="api">API Reference</h1>
+                                <hr>
+                                <div id="get-ping" class="panel panel-primary method-bloc">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-sm-5">GET /ping</div>
+                                            <div class="col-sm-7 tag-line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="method-summary method-component">
+                                            <p>Simply reply &quot;pong&quot;</p>
+                                        </div>
+                                        <div class="method-description method-component">
+                                            <p>Allow to check api is running</p>
+                                        </div>
+                                        <div class="method-component">
+                                            <h3>Responses</h3>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Http Status Code</th>
+                                                        <th>Description</th>
+                                                        <th>Schema</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <div>
+                                                        <tr>
+                                                            <th class="response-ok">200</th>
+                                                            <td>Server is running</td>
+                                                            <td>string</td>
+                                                        </tr>
+                                                    </div>
+                                                    <div>
+                                                        <tr>
+                                                            <th class="response-error">404</th>
+                                                            <td>Server is down</td>
+                                                            <td>none</td>
+                                                        </tr>
+                                                    </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="path-group">
+                                    <h2 id="paths-auth">Auth</h2>
+                                    <p>Requests related to authorization</p>
+                                    <div class="paragraph">
+                                        <div id="get-auth-login" class="panel panel-primary method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">GET /auth/login</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-info tag"><a href="#paragraphs-security-client-auth" style="color: white;">Client Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Login the user and reply a accessToken</p>
+                                                </div>
+                                                <div class="method-description method-component">
+                                                    <p>This operation register the user if it is the first time he use the application.</p>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Parameters</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>Required</th>
+                                                                <th>In</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <td>facebookToken</td>
+                                                                    <td>The facebook access token</td>
+                                                                    <td>true</td>
+                                                                    <td>body</td>
+                                                                    <td>string</td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Responses</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Http Status Code</th>
+                                                                <th>Description</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <th class="response-ok">200</th>
+                                                                    <td>Operation succeed</td>
+                                                                    <td><a href="#obj-access-token-reply">Access token reply</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">400</th>
+                                                                <td>1</td>
+                                                                <td></td>
+                                                                <td>Invalid request, (parameters missing)</td>
+                                                                <td>
+                                                                    <p>Check request parameters twice</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                                <td>Request need to be authorized by Client Auth (check documentation for
+                                                                    more details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-client-auth">Client Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>3</td>
+                                                                <td>1</td>
+                                                                <td>Invalid facebook access token, please update facebook token (POST /auth/facebooktoken)</td>
+                                                                <td>
+                                                                    <p>See <a href="#post-auth-facebooktoken">POST /auth/facebooktoken</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="paragraph">
+                                        <div id="get-auth-token" class="panel panel-primary method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">GET /auth/token</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-warning tag"><a href="#paragraphs-security-user-auth" style="color: white;">User Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Get information about the current token (included in the request header)</p>
+                                                </div>
+                                                <div class="method-description method-component"></div>
+                                                <div class="method-component">
+                                                    <h3>Responses</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Http Status Code</th>
+                                                                <th>Description</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <th class="response-ok">200</th>
+                                                                    <td>Valid token</td>
+                                                                    <td><a href="#obj-token-information-reply">Token information reply</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>2</td>
+                                                                <td>Request need to be authorized by User Auth (check documentation for more
+                                                                    details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>1</td>
+                                                                <td>Token expired, please use POST /auth/renew to obtain a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#post-auth-renew">POST /auth/renew</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>2</td>
+                                                                <td>Invalid token, please use login again to get a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="paragraph">
+                                        <div id="get-auth-renew" class="panel panel-primary method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">GET /auth/renew</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-info tag"><a href="#paragraphs-security-client-auth" style="color: white;">Client Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Get a new access token</p>
+                                                </div>
+                                                <div class="method-description method-component">
+                                                    <p>Exchange an expired access token and give a new one</p>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Parameters</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>Required</th>
+                                                                <th>In</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <td>access_token</td>
+                                                                    <td>The expired access token</td>
+                                                                    <td>true</td>
+                                                                    <td>query</td>
+                                                                    <td>string</td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Responses</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Http Status Code</th>
+                                                                <th>Description</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <th class="response-ok">200</th>
+                                                                    <td>Operation success</td>
+                                                                    <td><a href="#obj-access-token-reply">Access token reply</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">400</th>
+                                                                <td>1</td>
+                                                                <td></td>
+                                                                <td>Invalid request, (parameters missing)</td>
+                                                                <td>
+                                                                    <p>Check request parameters twice</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                                <td>Request need to be authorized by Client Auth (check documentation for
+                                                                    more details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-client-auth">Client Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>2</td>
+                                                                <td>Invalid token, please use login again to get a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="paragraph">
+                                        <div id="get-auth-facebooktoken" class="panel panel-primary method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">GET /auth/facebooktoken</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-warning tag"><a href="#paragraphs-security-user-auth" style="color: white;">User Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Get the current facebook token</p>
+                                                </div>
+                                                <div class="method-description method-component">
+                                                    <p>Return the current facebook token</p>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Responses</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Http Status Code</th>
+                                                                <th>Description</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <th class="response-ok">200</th>
+                                                                    <td>Operation success</td>
+                                                                    <td>string</td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>2</td>
+                                                                <td>Request need to be authorized by User Auth (check documentation for more
+                                                                    details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>1</td>
+                                                                <td>Token expired, please use POST /auth/renew to obtain a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#post-auth-renew">POST /auth/renew</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>2</td>
+                                                                <td>Invalid token, please use login again to get a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="post-auth-facebooktoken" class="panel panel-post method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">POST /auth/facebooktoken</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-warning tag"><a href="#paragraphs-security-user-auth" style="color: white;">User Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Update the current facebook token</p>
+                                                </div>
+                                                <div class="method-description method-component">
+                                                    <p>Update the server side facebook token</p>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Parameters</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>Required</th>
+                                                                <th>In</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <td>facebookToken</td>
+                                                                    <td>facebookToken</td>
+                                                                    <td>true</td>
+                                                                    <td>body</td>
+                                                                    <td>string</td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Responses</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Http Status Code</th>
+                                                                <th>Description</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <th class="response-ok">200</th>
+                                                                    <td>Token updated</td>
+                                                                    <td>string</td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>2</td>
+                                                                <td>Request need to be authorized by User Auth (check documentation for more
+                                                                    details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>1</td>
+                                                                <td>Token expired, please use POST /auth/renew to obtain a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#post-auth-renew">POST /auth/renew</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>2</td>
+                                                                <td>Invalid token, please use login again to get a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="path-group">
+                                    <h2 id="paths-client">Client</h2>
+                                    <p>Requests related to clients</p>
+                                    <div class="paragraph">
+                                        <div id="post-client" class="panel panel-post method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">POST /client</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-info tag"><a href="#paragraphs-security-client-auth" style="color: white;">Client Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Create a new client</p>
+                                                </div>
+                                                <div class="method-description method-component">
+                                                    <p>This operation create a new client. Only client of type 3 (admin) are
+                                                        allowed to perform this operation</p>
+                                                </div>
+                                                <div class="method-component">
+                                                    <h3>Parameters</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>Required</th>
+                                                                <th>In</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <td>name</td>
+                                                                    <td>The new client name</td>
+                                                                    <td>true</td>
+                                                                    <td>body</td>
+                                                                    <td>string</td>
+                                                                </tr>
+                                                            </div>
+                                                            <div>
+                                                                <tr>
+                                                                    <td>type</td>
+                                                                    <td>The type of the client (1 are external clients, 2 are company clients)</td>
+                                                                    <td>true</td>
+                                                                    <td>body</td>
+                                                                    <td>int</td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">400</th>
+                                                                <td>1</td>
+                                                                <td></td>
+                                                                <td>Invalid request, (parameters missing)</td>
+                                                                <td>
+                                                                    <p>Check request parameters twice</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>1</td>
+                                                                <td>Request need to be authorized by Client Auth (check documentation for
+                                                                    more details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-client-auth">Client Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="path-group">
+                                    <h2 id="paths-user">User</h2>
+                                    <p>Requests related to users</p>
+                                    <div class="paragraph">
+                                        <div id="get-user-info" class="panel panel-primary method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">GET /user/info</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-warning tag"><a href="#paragraphs-security-user-auth" style="color: white;">User Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Get user information</p>
+                                                </div>
+                                                <div class="method-description method-component"></div>
+                                                <div class="method-component">
+                                                    <h3>Responses</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Http Status Code</th>
+                                                                <th>Description</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <th class="response-ok">200</th>
+                                                                    <td>User information served</td>
+                                                                    <td><a href="#obj-user-info">User info</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>2</td>
+                                                                <td>Request need to be authorized by User Auth (check documentation for more
+                                                                    details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>1</td>
+                                                                <td>Token expired, please use POST /auth/renew to obtain a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#post-auth-renew">POST /auth/renew</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>2</td>
+                                                                <td>Invalid token, please use login again to get a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="paragraph">
+                                        <div id="get-user-friend" class="panel panel-primary method-bloc">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-5">GET /user/friend</div>
+                                                    <div class="col-sm-7 tag-line">
+                                                        <div class="label label-warning tag"><a href="#paragraphs-security-user-auth" style="color: white;">User Auth</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="method-summary method-component">
+                                                    <p>Get user friends</p>
+                                                </div>
+                                                <div class="method-description method-component"></div>
+                                                <div class="method-component">
+                                                    <h3>Responses</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Http Status Code</th>
+                                                                <th>Description</th>
+                                                                <th>Schema</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <div>
+                                                                <tr>
+                                                                    <th class="response-ok">200</th>
+                                                                    <td>User friend information served</td>
+                                                                    <td><a href="#obj-friend-list">Friend list</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </div>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <h3>Errors</h3>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>HTTP status</th>
+                                                                <th>Code</th>
+                                                                <th>SubCode</th>
+                                                                <th>Message</th>
+                                                                <th>Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>1</td>
+                                                                <td>2</td>
+                                                                <td>Request need to be authorized by User Auth (check documentation for more
+                                                                    details)</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>1</td>
+                                                                <td>Token expired, please use POST /auth/renew to obtain a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#post-auth-renew">POST /auth/renew</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th class="response-error">401</th>
+                                                                <td>2</td>
+                                                                <td>2</td>
+                                                                <td>Invalid token, please use login again to get a new token</td>
+                                                                <td>
+                                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="part">
+                                <h1 id="obj">Objects</h1>
+                                <hr>
+                                <div class="sub_part">
+                                    <div>
+                                        <h2 id="obj-error">Error</h2>
+                                        <div class="obj-description">
+                                            <p>Error object</p>
+                                        </div><pre><code class="prettyprint">{
+  <span class=json-key>error</span>: {
+    <span class=json-key>errorCode</span>: <span class=json-value>0</span>,
+    <span class=json-key>errorSubCode</span>: <span class=json-value>0</span>,
+    <span class=json-key>message</span>: <span class=json-string>""</span>
+  }
+}</code></pre>
+                                    </div>
+                                </div>
+                                <div class="sub_part">
+                                    <div>
+                                        <h2 id="obj-access-token-reply">Access token reply</h2>
+                                        <div class="obj-description">
+                                            <p>The <a href="#get-auth-login">/auth/login</a> reply</p>
+                                        </div><pre><code class="prettyprint">{
+  <span class=json-key>acess_token</span>: <span class=json-string>""</span>
+}</code></pre>
+                                    </div>
+                                </div>
+                                <div class="sub_part">
+                                    <div>
+                                        <h2 id="obj-token-information-reply">Token information reply</h2>
+                                        <div class="obj-description">
+                                            <p>The <a href="#get-auth-token">/auth/token</a> reply</p>
+                                        </div><pre><code class="prettyprint">{
+  <span class=json-key>token</span>: {
+    <span class=json-key>token</span>: <span class=json-string>""</span>,
+    <span class=json-key>deliveryDate</span>: <span class=json-string>""</span>,
+    <span class=json-key>expirationDate</span>: <span class=json-string>""</span>,
+    <span class=json-key>renewExpirationDate</span>: <span class=json-string>""</span>
+  },
+  <span class=json-key>client</span>: {
+    <span class=json-key>name</span>: <span class=json-string>""</span>,
+    <span class=json-key>id</span>: <span class=json-string>""</span>
+  },
+  <span class=json-key>user</span>: {
+    <span class=json-key>publicId</span>: <span class=json-string>""</span>,
+    <span class=json-key>name</span>: <span class=json-string>""</span>
+  }
+}</code></pre>
+                                    </div>
+                                </div>
+                                <div class="sub_part">
+                                    <div>
+                                        <h2 id="obj-user-info">User info</h2>
+                                        <div class="obj-description"></div><pre><code class="prettyprint">{
+  <span class=json-key>facebookId</span>: <span class=json-string>""</span>,
+  <span class=json-key>publicId</span>: <span class=json-string>""</span>,
+  <span class=json-key>firstName</span>: <span class=json-string>""</span>,
+  <span class=json-key>lastName</span>: <span class=json-string>""</span>,
+  <span class=json-key>name</span>: <span class=json-string>""</span>
+}</code></pre>
+                                    </div>
+                                </div>
+                                <div class="sub_part">
+                                    <div>
+                                        <h2 id="obj-friend-list">Friend list</h2>
+                                        <div class="obj-description"></div><pre><code class="prettyprint">[
+  {
+    <span class=json-key>facebookId</span>: <span class=json-string>""</span>,
+    <span class=json-key>publicId</span>: <span class=json-string>""</span>,
+    <span class=json-key>firstName</span>: <span class=json-string>""</span>,
+    <span class=json-key>lastName</span>: <span class=json-string>""</span>,
+    <span class=json-key>name</span>: <span class=json-string>""</span>
+  }
+]</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="part">
+                                <h1 id="errors">Possible Error response</h1>
+                                <hr>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>HTTP status</th>
+                                            <th>Code</th>
+                                            <th>SubCode</th>
+                                            <th>Message</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <div>
+                                            <tr>
+                                                <th id="error-invalid-request" class="response-error">400</th>
+                                                <td>1</td>
+                                                <td></td>
+                                                <td>Invalid request, (parameters missing)</td>
+                                                <td>
+                                                    <p>Check request parameters twice</p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-client-auth" class="response-error">401</th>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>Request need to be authorized by Client Auth (check documentation for
+                                                    more details)</td>
+                                                <td>
+                                                    <p>See <a href="#paragraphs-security-client-auth">Client Auth paragraph</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-user-auth" class="response-error">401</th>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>Request need to be authorized by User Auth (check documentation for more
+                                                    details)</td>
+                                                <td>
+                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-expired-token" class="response-error">401</th>
+                                                <td>2</td>
+                                                <td>1</td>
+                                                <td>Token expired, please use POST /auth/renew to obtain a new token</td>
+                                                <td>
+                                                    <p>See <a href="#post-auth-renew">POST /auth/renew</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-wrong-token" class="response-error">401</th>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>Invalid token, please use login again to get a new token</td>
+                                                <td>
+                                                    <p>See <a href="#paragraphs-security-user-auth">User Auth paragraph</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-fb-invalid-token" class="response-error">401</th>
+                                                <td>3</td>
+                                                <td>1</td>
+                                                <td>Invalid facebook access token, please update facebook token (POST /auth/facebooktoken)</td>
+                                                <td>
+                                                    <p>See <a href="#post-auth-facebooktoken">POST /auth/facebooktoken</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-not-found" class="response-error">404</th>
+                                                <td>1</td>
+                                                <td></td>
+                                                <td>Not found</td>
+                                                <td></td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-internal-error" class="response-error">500</th>
+                                                <td>1</td>
+                                                <td></td>
+                                                <td>Internal server error</td>
+                                                <td>
+                                                    <p>Server side issue...</p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        <div>
+                                            <tr>
+                                                <th id="error-internal-error-fb" class="response-error">500</th>
+                                                <td>2</td>
+                                                <td></td>
+                                                <td>Internal server error (facebook reply)</td>
+                                                <td>
+                                                    <p>Server side issue while reading facebook api reply</p>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="part">
+                                <h1 id="versions">Versions<a href="../" class="see-all">[See all]</a></h1>
+                                <hr>
+                                <div id="versions_description"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
