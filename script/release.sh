@@ -8,7 +8,12 @@ usage() {
 RELEASE_TYPE=$1
 RELEASE_MSG=$2
 
-if [[ ( "$#" -ne 2 ) || ( "$RELEASE_TYPE" != "major" && "$RELEASE_TYPE" != "minor" &&  "$RELEASE_TYPE" != "path" ) ]]; then
+if [[ ( "$#" -ne 2 ) || ( "$RELEASE_TYPE" != "major" && "$RELEASE_TYPE" != "minor" &&  "$RELEASE_TYPE" != "patch" ) ]]; then
     usage
 fi
 
+echo "$RELEASE_MSG" > .vmessage
+
+npm version "$RELEASE_TYPE" -m "$RELEASE_MSG"
+
+rm .vmessage

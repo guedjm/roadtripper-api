@@ -3,7 +3,8 @@
   "version": "1.0.2",
   "description": "Roadtripper project REST Api",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "version": "docgenerator doc.yaml version.json doc `./bin/www -v` `cat .vmessage`"
   },
   "repository": {
     "type": "git",
