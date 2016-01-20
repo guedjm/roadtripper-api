@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "version": "docgenerator doc.yaml version.json docs `./bin/www -v` `cat .vmessage` && git add docs",
-    "postversion": "git push origin"
+    "postversion": "git push origin master"
   },
   "repository": {
     "type": "git",
